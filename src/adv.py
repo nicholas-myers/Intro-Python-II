@@ -21,8 +21,8 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-for r, value in room.items():
-    print(value.__str__())
+# for r, value in room.items():
+    # print(value.__str__())
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -50,3 +50,55 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+from player import Player
+# print a intro message
+# intro welcomes player and tells them the current room
+# the player starts outside
+# you are [location] available commands n, s, e, w
+# add error messages when trying to move where there is no room
+
+player_name = input("Enter your name to play: ")
+# print(room["outside"])
+player = Player(player_name, room["outside"])
+print(f"Welcome Adventurer {player.print_name()}! You are at the {player.print_room()}")
+print(f"Possible actions: 'n' for North, 's' for south, 'e' for East, 'w' for West")
+print(f"To exit: 'q', 'quit', or 'exit'")   
+def nomove():
+    print("You can't go that way")
+    print(f"{player.print_room()}")
+    
+while True:
+    action = input("What action do you take? ")
+        # check the current room and perform
+    if action == "n":
+        # print(f"{player.current_room.n_to}")
+        try:
+            player.current_room = player.current_room.n_to
+            print(f"{player.print_room()}")
+        except:
+            nomove()
+    elif action == "s":
+        try:
+            player.current_room = player.current_room.s_to
+            print(f"{player.print_room()}")
+        except:
+            nomove()
+    elif action == "w":
+        try:
+            player.current_room = player.current_room.w_to
+            print(f"{player.print_room()}")
+        except:
+            nomove()
+    elif action == "e":
+        try:
+            player.current_room = player.current_room.e_to
+            print(f"{player.print_room()}")
+        except:
+            nomove()
+    elif action == "q" or action == "quit" or action == "exit":
+        break
+    else:
+        "I don't understand that command ><"
+        
+        
