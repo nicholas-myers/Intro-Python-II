@@ -34,9 +34,7 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
-# Main
-#
+# ######### MAIN ############
 
 # Make a new player object that is currently in the 'outside' room.
 
@@ -51,17 +49,28 @@ room['treasure'].s_to = room['narrow']
 #
 # If the user enters "q", quit the game.
 
-from player import Player
+# ######### MOVEMENT ############
 # print a intro message
 # intro welcomes player and tells them the current room
 # the player starts outside
 # you are [location] available commands n, s, e, w
 # add error messages when trying to move where there is no room
 
+
+# ######### ITEMS ############
+# add a list of items to each room and player that are seperate from each other
+# add items to each room
+# give player ability to drop or pickup items
+# to pickup
+# loop over the list of items in
+
+from player import Player
+
 player_name = input("Enter your name to play: ")
 # print(room["outside"])
 player = Player(player_name, room["outside"])
 print(f"Welcome Adventurer {player.print_name()}! {player.print_room()}")
+print(f"You see {player.current_room.items}")
 print(f"Possible actions: 'n' for North, 's' for south, 'e' for East, 'w' for West")
 print(f"To exit: 'q', 'quit', or 'exit'")   
 def nomove():
