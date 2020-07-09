@@ -61,7 +61,7 @@ from player import Player
 player_name = input("Enter your name to play: ")
 # print(room["outside"])
 player = Player(player_name, room["outside"])
-print(f"Welcome Adventurer {player.print_name()}! You are at the {player.print_room()}")
+print(f"Welcome Adventurer {player.print_name()}! {player.print_room()}")
 print(f"Possible actions: 'n' for North, 's' for south, 'e' for East, 'w' for West")
 print(f"To exit: 'q', 'quit', or 'exit'")   
 def nomove():
@@ -99,6 +99,6 @@ while True:
     elif action == "q" or action == "quit" or action == "exit":
         break
     else:
-        "I don't understand that command ><"
+        print("I don't understand that command ><!")
         
         
