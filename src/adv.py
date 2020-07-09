@@ -79,9 +79,11 @@ player_name = input("Enter your name to play: ")
 # print(room["outside"])
 player = Player(player_name, room["outside"])
 print(f"\nWelcome Adventurer {player.print_name()}! \n{player.print_room()}")
-print(f"Possible actions:\n 'n' for North,\n 's' for south,\n 'e' for East,\n 'w' for West\n")
-print(f"To exit: 'q', 'quit', or 'exit'\n")   
-move = ["n", "s", "e", "w"]
+def possible_actions():
+    print(f"Possible actions:\n 'n' for North,\n 's' for south,\n 'e' for East,\n 'w' for West\n")
+    print(f"To exit: 'q', 'quit', or 'exit'\n")   
+possible_actions()
+directions = ["n", "s", "e", "w"]
 exit = ["q", "quit", "exit"]
 def nomove():
     print("You can't go that way!\n")
@@ -94,16 +96,16 @@ while True:
     if [close for close in exit if action == close]:
         print(f"Come play again Adventurer {player_name}!")
         break
-    for direction in move:
-        if action == direction:
-            moved = direction + "_to"
-            try:
-                player.current_room = getattr(player.current_room, moved)
-                print(f"{player.print_room()}")
-            except:
-                nomove()
+    elif [move for move in directions if action == move]:
+            for move in directions:
+                if action == move:
+                    moved = move + "_to"
+                    try:
+                        player.current_room = getattr(player.current_room, moved)
+                        print(f"{player.print_room()}")
+                    except:
+                        nomove()
     else:
-        print("I don't understand that command ><!")
-        print(f"Possible actions:\n 'n' for North,\n 's' for south,\n 'e' for East,\n 'w' for West\n")
- 
+        print("I don't understand that ><!\n")
+        possible_actions()
         
