@@ -5,4 +5,4 @@ class Item:
         
         
     def __str__(self):
-        return f"Item: {self.name}, Description: {self.description}"
+        return f"{self.name}: {self.description}"

@@ -6,6 +6,12 @@ class Room:
         self.name = name
         self.description = description
         self.items = items
+        
+    def print_items(self):
+        item_names = []
+        for i in self.items:
+            item_names.append(i.name)
+        print(f"{item_names}\n")
     
     def __str__(self):
         return f"{self.name}, {self.description}."
