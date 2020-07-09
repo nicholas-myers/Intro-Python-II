@@ -1,31 +1,37 @@
 from room import Room
+from item import Item
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons",
+                     [Item("Wood Sword", "The blade and hilt are made of wood, it looks like a fine carpenter wittled this, it's edges are dulled and look as if it could not cut through anything.")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""",
+                     [Item("Wood Sword", "The blade and hilt are made of wood, it looks like a fine carpenter wittled this, it's edges are dulled and look as if it could not cut through anything.")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""",
+                     [Item("Wood Sword", "The blade and hilt are made of wood, it looks like a fine carpenter wittled this, it's edges are dulled and look as if it could not cut through anything.")]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""",
+                     [Item("Wood Sword", "The blade and hilt are made of wood, it looks like a fine carpenter wittled this, it's edges are dulled and look as if it could not cut through anything.")]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""",
+                     [Item("Wood Sword", "The blade and hilt are made of wood, it looks like a fine carpenter wittled this, it's edges are dulled and look as if it could not cut through anything.")]),
 }
-
 # for r, value in room.items():
     # print(value.__str__())
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
+print(f"{room['outside'].items}")
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
 room['foyer'].e_to = room['narrow']
@@ -68,48 +74,36 @@ room['treasure'].s_to = room['narrow']
 
 from player import Player
 
+
 player_name = input("Enter your name to play: ")
 # print(room["outside"])
 player = Player(player_name, room["outside"])
-print(f"Welcome Adventurer {player.print_name()}! {player.print_room()}")
-print(f"You see {player.current_room.items}")
-print(f"Possible actions: 'n' for North, 's' for south, 'e' for East, 'w' for West")
-print(f"To exit: 'q', 'quit', or 'exit'")   
+print(f"\nWelcome Adventurer {player.print_name()}! \n{player.print_room()}")
+print(f"Possible actions:\n 'n' for North,\n 's' for south,\n 'e' for East,\n 'w' for West\n")
+print(f"To exit: 'q', 'quit', or 'exit'\n")   
+move = ["n", "s", "e", "w"]
+exit = ["q", "quit", "exit"]
 def nomove():
-    print("You can't go that way")
+    print("You can't go that way!\n")
     print(f"{player.print_room()}")
     
 while True:
     action = input("What action do you take? ")
         # check the current room and perform
-    if action == "n":
-        # print(f"{player.current_room.n_to}")
-        try:
-            player.current_room = player.current_room.n_to
-            print(f"{player.print_room()}")
-        except:
-            nomove()
-    elif action == "s":
-        try:
-            player.current_room = player.current_room.s_to
-            print(f"{player.print_room()}")
-        except:
-            nomove()
-    elif action == "w":
-        try:
-            player.current_room = player.current_room.w_to
-            print(f"{player.print_room()}")
-        except:
-            nomove()
-    elif action == "e":
-        try:
-            player.current_room = player.current_room.e_to
-            print(f"{player.print_room()}")
-        except:
-            nomove()
-    elif action == "q" or action == "quit" or action == "exit":
+        # dynamically 
+    if [close for close in exit if action == close]:
+        print(f"Come play again Adventurer {player_name}!")
         break
+    for direction in move:
+        if action == direction:
+            moved = direction + "_to"
+            try:
+                player.current_room = getattr(player.current_room, moved)
+                print(f"{player.print_room()}")
+            except:
+                nomove()
     else:
         print("I don't understand that command ><!")
-        
+        print(f"Possible actions:\n 'n' for North,\n 's' for south,\n 'e' for East,\n 'w' for West\n")
+ 
         
