@@ -62,7 +62,9 @@ room['treasure'].s_to = room['narrow']
 # add items to each room
 # give player ability to drop or pickup items
 # to pickup
-# loop over the list of items in
+# loop over the list of items in the room
+# remove the item from the room
+# add item to the player
 
 from player import Player
 
