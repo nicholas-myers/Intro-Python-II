@@ -9,23 +9,26 @@ class Player:
     
     # a player can take items from the current room
     def take_item(self, item):
-        for i in current_room.items:
-            if i == item:
+        for i in self.current_room.items:
+            if i.name.lower() == item:
                 self.inventory.append(i)
-                current_room.items.remove(i)
+                self.current_room.items.remove(i)
                 
     # a player can drop items into the current room
     def drop_item(self, item):
         for i in self.inventory:
-            if i == item:
+            if i.name.lower() == item:
                 self.inventory.remove(i)
-                current_room.items.append(i)
+                self.current_room.items.append(i)
+
     # print the players inventory
     def print_inventory(self):
         if len(self.inventory) == 0:
-            print("You currently have no items.")
+            print("You currently have no items.\n")
         elif len(self.inventory) > 0:
-            print(f"Inventory: {self.inventory}")
+            print("Inventory: ")
+            for i in self.inventory:
+                print(i.name)
     
     # print players name 
     def print_name(self):

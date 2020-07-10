@@ -86,7 +86,6 @@ player = Player(player_name, room["outside"])
 # welcome the player into the game and give them info
 print(f"\nWelcome Adventurer {player.print_name()}! \n{player.print_room()}")
 player.print_inventory()
-print("You see the following items: ")
 player.current_room.print_items()
 def possible_actions():
     print(f"Move:\n 'n' for North, 's' for south, 'e' for East, 'w' for West")
@@ -104,22 +103,37 @@ def nomove():
 
 ########### GAME FLOW ###############
 while True:
-    action = input("What action do you take? ")
-    if [close for close in exit if action == close]:
-        print(f"Come play again Adventurer {player_name}!")
-        break
-    elif [move for move in directions if action == move]:
-            for move in directions:
-                if action == move:
-                    moved = move + "_to"
-                    try:
-                        player.current_room = getattr(player.current_room, moved)
-                        print(f"\n{player.print_room()}")
-                        print("You see: ")
-                        player.current_room.print_items()
-                    except:
-                        nomove()
-    else:
-        print("I don't understand that ><!\n")
-        possible_actions()
-        
+    action = input("What action do you take? ").split(" ")
+    if len(action) == 1:
+        action = action[0]
+        if [close for close in exit if action == close]:
+            print(f"Come play again Adventurer {player_name}!")
+            break
+        elif [move for move in directions if action == move]:
+                for move in directions:
+                    if action == move:
+                        moved = move + "_to"
+                        try:
+                            player.current_room = getattr(player.current_room, moved)
+                            print(f"\n{player.print_room()}")
+                            print("You see: ")
+                            player.current_room.print_items()
+                        except:
+                            nomove()
+        else:
+            print("I don't understand that ><!\n")
+            possible_actions()
+    elif len(action) >= 2:
+        find_list = [word for word in action if word != action[0]]
+        find_word = " ".join(find_list)
+        # print(find_word)
+        if action[0] == "take":
+            player.take_item(find_word)
+            print(f"{player.print_room()}")
+            player.print_inventory()
+            player.current_room.print_items()
+        elif action[0] == "drop":
+            player.drop_item(find_word)
+            print(f"{player.print_room()}")
+            player.print_inventory()
+            player.current_room.print_items()

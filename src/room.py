@@ -10,7 +10,8 @@ class Room:
     def print_items(self):
         item_names = []
         for i in self.items:
-            item_names.append(i.name)
+            item_names.append(i.__str__())
+        print("You see the following items: ")
         print(f"{item_names}\n")
     
     def __str__(self):
